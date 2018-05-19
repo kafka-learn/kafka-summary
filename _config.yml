@@ -12,7 +12,7 @@ keywords: Kafka Wiki
 description: Kafka Wiki 
 author: 
 
-root: //kafka-summary
+root: /kafka-summary/
 source: content
 destination: output
 themes_dir: themes
@@ -26,8 +26,8 @@ category:
 
 deploy:
   - type: git
-    remote: 'https://github.com/kafka-learn/kafka-summary'
-    branch: 'gh-pages'  
+    remote: https://github.com/kafka-learn/kafka-summary
+    branch: gh-pages  
 
 default_ext: md
 pygments: true
