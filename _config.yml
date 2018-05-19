@@ -1,12 +1,34 @@
 # Document:
 # http://simiki.org/docs/configuration.html
 
-url: 
-title: 
-keywords: 
+
+
+
+
+
+url: https://kafka-learn.github.io/kafka-summary/
+title: Kafka Wiki 
+keywords: Kafka Wiki 
 description: Kafka Wiki 
 author: 
+
+root: //kafka-summary
+source: content
+destination: output
+themes_dir: themes
+theme: simple2
+
+category:
+  - name: linux  # the category directory name
+    label: Linux/运维  # alias name of category, used in index page
+  - name: database
+    label: 数据库
+
 deploy:
   - type: git
     remote: 'https://github.com/kafka-learn/kafka-summary'
-    branch: 'gh-pages'
+    branch: 'gh-pages'  
+
+default_ext: md
+pygments: true
+debug: false
