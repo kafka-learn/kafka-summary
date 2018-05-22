@@ -40,7 +40,7 @@ pip install ghp-import
 
 - 每一个带有.md文件的为wiki的一个栏目
 
-- 图片上传问题请参考[imgs仓库]('https://github.com/kafka-learn/imgs')，以github repo为图床，所以先需要上传图片到imgs仓库，wiki里面直接填图片链接即可
+- 图片上传问题请参考[imgs仓库](https://github.com/kafka-learn/imgs)，以github repo为图床，所以先需要上传图片到imgs仓库，wiki里面直接填图片链接即可
 
 ## wiki部署（部署暂时由我代大家完成）
 
