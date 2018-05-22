@@ -1,0 +1,187 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <link rel="Stylesheet" type="text/css" href="/kafka-summary/static/css/style.css">
+    <link rel="Stylesheet" type="text/css" href="/kafka-summary/static/css/tango.css">
+    <link rel="shortcut icon" href="/kafka-summary/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/kafka-summary/favicon.ico" type="image/x-icon">
+    <link rel="alternate" type="application/atom+xml" href="atom.xml" title="Atom feed">
+    <title>Kafka Topic的JAVA API操作 - Kafka Wiki</title>
+    <meta name="keywords" content="Kafka Wiki"/>
+    <meta name="description" content="Kafka Wiki"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+
+  <body>
+    <div id="container">
+      
+<div id="header">
+  <div class="post-nav"><a href="/kafka-summary/">Home</a>&nbsp;&#187;&nbsp;<a href="/kafka-summary/#Kafka-demos">Kafka-demos</a>&nbsp;&#187;&nbsp;Kafka Topic的JAVA API操作
+    <span class="updated">Page Updated&nbsp;
+      2018-05-25 00:00
+    </span></div>
+</div>
+<div class="clearfix"></div>
+
+<div class="page_title">Kafka Topic的JAVA API操作</div>
+
+  <h2 id="_1">项目环境</h2>
+<ul>
+<li>
+<p>unix platform</p>
+</li>
+<li>
+<p>zookeeper-3.4.12</p>
+</li>
+<li>
+<p>kafka_2.11-1.1.0</p>
+</li>
+<li>
+<p>JDK8 + idea + gradle</p>
+</li>
+</ul>
+<h2 id="_2">介绍</h2>
+<h3 id="zookeeper">zookeeper 启动（单节点）</h3>
+<ul>
+<li>zoo.cfg</li>
+</ul>
+<p>修改下zoo.cfg, 没有则新建，主要是如下的三个设置</p>
+<div class="hlcode"><pre><span class="n">dataDir</span><span class="o">=/</span><span class="n">Users</span><span class="o">/</span><span class="n">mubi</span><span class="o">/</span><span class="n">soft</span><span class="o">/</span><span class="n">zookeeper</span><span class="o">-</span><span class="mf">3.4.12</span><span class="o">/</span><span class="n">data</span>
+<span class="n">dataLogDir</span><span class="o">=/</span><span class="n">Users</span><span class="o">/</span><span class="n">mubi</span><span class="o">/</span><span class="n">soft</span><span class="o">/</span><span class="n">zookeeper</span><span class="o">-</span><span class="mf">3.4.12</span><span class="o">/</span><span class="n">logs</span>
+<span class="n">clientPort</span><span class="o">=</span><span class="mi">2181</span>
+</pre></div>
+
+
+<ul>
+<li>启动zookeeper</li>
+</ul>
+<div class="hlcode"><pre><span class="err">$</span> <span class="n">bin</span><span class="o">/</span><span class="n">zkServer</span><span class="p">.</span><span class="n">sh</span> <span class="n">start</span>
+<span class="n">ZooKeeper</span> <span class="n">JMX</span> <span class="n">enabled</span> <span class="n">by</span> <span class="k">default</span>
+<span class="n">Using</span> <span class="n">config</span><span class="o">:</span> <span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">mubi</span><span class="o">/</span><span class="n">soft</span><span class="o">/</span><span class="n">zookeeper</span><span class="o">-</span><span class="mf">3.4.12</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="p">..</span><span class="o">/</span><span class="n">conf</span><span class="o">/</span><span class="n">zoo</span><span class="p">.</span><span class="n">cfg</span>
+<span class="n">Starting</span> <span class="n">zookeeper</span> <span class="p">...</span> <span class="n">STARTED</span>
+</pre></div>
+
+
+<ul>
+<li>关闭 zookeeper</li>
+</ul>
+<div class="hlcode"><pre><span class="nv">$ </span>bin/zkServer.sh stop
+ZooKeeper JMX enabled by default
+Using config: /Users/mubi/soft/zookeeper-3.4.12/bin/../conf/zoo.cfg
+Stopping zookeeper ... STOPPED
+</pre></div>
+
+
+<h3 id="kafak-topic">Kafak 启动 与 topic操作相关命令</h3>
+<ul>
+<li>conf/server.properties</li>
+</ul>
+<p>主要是 <code>zookeeper.connect</code>, <code>log.dirs</code>, <code>broker.id</code>等配置</p>
+<ul>
+<li>开启 kafka server</li>
+</ul>
+<div class="hlcode"><pre><span class="nv">$ </span>bin/kafka-server-start.sh config/server.properties
+</pre></div>
+
+
+<ul>
+<li>查看所有topic</li>
+</ul>
+<div class="hlcode"><pre><span class="nv">$ </span>bin/kafka-topics.sh --list --zookeeper localhost:2181
+__consumer_offsets
+connect-test
+my-replicated-topic
+<span class="nb">test</span>
+</pre></div>
+
+
+<ul>
+<li>查看具体的topic</li>
+</ul>
+<div class="hlcode"><pre><span class="nv">$ </span>bin/kafka-topics.sh --describe --zookeeper localhost:2181 --topic <span class="nb">test</span>
+Topic:test  PartitionCount:1    ReplicationFactor:1 Configs:
+    Topic: <span class="nb">test </span>Partition: 0    Leader: 0   Replicas: 0 Isr: 0
+</pre></div>
+
+
+<ul>
+<li>修改topic 分区(partion)数量</li>
+</ul>
+<div class="hlcode"><pre><span class="nv">$ </span>bin/kafka-topics.sh --zookeeper localhost:2181  --alter --topic <span class="nb">test</span> --partitions 2
+</pre></div>
+
+
+<p><img alt="" src="https://raw.githubusercontent.com/kafka-learn/imgs/master/src/alter_partion.png" /></p>
+<ul>
+<li>关闭 kafka 服务</li>
+</ul>
+<div class="hlcode"><pre><span class="nv">$ </span>bin/kafka-server-stop.sh
+</pre></div>
+
+
+<h3 id="java-api-topic">Java API 操作 topic</h3>
+<p>代码见 code/demo-topic 项目</p>
+<ul>
+<li>查看所有的topic</li>
+</ul>
+<div class="hlcode"><pre><span class="n">Properties</span> <span class="n">props</span> <span class="o">=</span> <span class="n">new</span> <span class="n">Properties</span><span class="p">();</span>
+<span class="n">props</span><span class="p">.</span><span class="n">put</span><span class="p">(</span><span class="s">&quot;bootstrap.servers&quot;</span><span class="p">,</span> <span class="s">&quot;localhost:9092&quot;</span><span class="p">);</span>
+<span class="c1">//        props.put(&quot;group.id&quot;,&quot;test&quot;);</span>
+<span class="c1">//        props.put(&quot;auto.offset.reset&quot;,&quot;earliest&quot;);</span>
+<span class="c1">//        props.put(&quot;acks&quot;, &quot;all&quot;);</span>
+<span class="c1">//        props.put(&quot;retries&quot;, 0);</span>
+<span class="c1">//        props.put(&quot;batch.size&quot;, 16384);</span>
+<span class="c1">//        props.put(&quot;linger.ms&quot;, 1);</span>
+<span class="c1">//        props.put(&quot;buffer.memory&quot;, 33554432);</span>
+<span class="c1">//        props.put(&quot;key.serializer&quot;, &quot;org.apache.kafka.common.serialization.StringSerializer&quot;);</span>
+<span class="n">props</span><span class="p">.</span><span class="n">put</span><span class="p">(</span><span class="s">&quot;key.deserializer&quot;</span><span class="p">,</span> <span class="s">&quot;org.apache.kafka.common.serialization.StringDeserializer&quot;</span><span class="p">);</span>
+<span class="c1">//        props.put(&quot;value.serializer&quot;, &quot;org.apache.kafka.common.serialization.StringSerializer&quot;);</span>
+<span class="n">props</span><span class="p">.</span><span class="n">put</span><span class="p">(</span><span class="s">&quot;value.deserializer&quot;</span><span class="p">,</span> <span class="s">&quot;org.apache.kafka.common.serialization.StringDeserializer&quot;</span><span class="p">);</span>
+
+
+<span class="n">AdminClient</span> <span class="n">adminClient</span> <span class="o">=</span> <span class="n">AdminClient</span><span class="p">.</span><span class="n">create</span><span class="p">(</span><span class="n">props</span><span class="p">);</span>
+
+<span class="n">ListTopicsResult</span> <span class="n">listTopicsResult</span> <span class="o">=</span> <span class="n">adminClient</span><span class="p">.</span><span class="n">listTopics</span><span class="p">();</span>
+<span class="n">KafkaFuture</span><span class="o">&lt;</span><span class="n">java</span><span class="p">.</span><span class="n">util</span><span class="p">.</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">java</span><span class="p">.</span><span class="n">lang</span><span class="p">.</span><span class="n">String</span><span class="p">,</span><span class="n">TopicListing</span><span class="o">&gt;&gt;</span> <span class="n">kafkaFuture</span>
+        <span class="o">=</span> <span class="n">listTopicsResult</span><span class="p">.</span><span class="n">namesToListings</span><span class="p">();</span>
+<span class="n">try</span> <span class="p">{</span>
+    <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="p">,</span><span class="n">TopicListing</span><span class="o">&gt;</span> <span class="n">mp</span> <span class="o">=</span> <span class="n">kafkaFuture</span><span class="p">.</span><span class="n">get</span><span class="p">();</span>
+
+    <span class="n">mp</span><span class="p">.</span><span class="n">forEach</span><span class="p">((</span><span class="n">String</span> <span class="n">topic_name</span><span class="p">,</span> <span class="n">TopicListing</span> <span class="n">topicListing</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">{</span>
+        <span class="n">System</span><span class="p">.</span><span class="n">out</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="n">topicListing</span><span class="p">.</span><span class="n">toString</span><span class="p">());</span>
+
+    <span class="p">});</span>
+<span class="p">}</span> <span class="n">catch</span> <span class="p">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">e</span><span class="p">.</span><span class="n">printStackTrace</span><span class="p">();</span>
+<span class="p">}</span> <span class="n">catch</span> <span class="p">(</span><span class="n">ExecutionException</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">e</span><span class="p">.</span><span class="n">printStackTrace</span><span class="p">();</span>
+<span class="p">}</span><span class="n">finally</span> <span class="p">{</span>
+    <span class="n">adminClient</span><span class="p">.</span><span class="n">close</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<ul>
+<li>topic 创建</li>
+</ul>
+<p><img alt="" src="https://raw.githubusercontent.com/kafka-learn/imgs/master/src/create_topic.png" /></p>
+<ul>
+<li>describe topic</li>
+</ul>
+<p><img alt="" src="https://raw.githubusercontent.com/kafka-learn/imgs/master/src/describe_topic.png" /></p>
+<h2 id="_3">参考</h2>
+<p>http://kafka.apache.org/11/javadoc/overview-summary.html</p>
+<p>注：具体的类说明，需要看API中的介绍</p>
+    </div>
+    <div id="footer">
+      <span>
+        <p>Copyright © 2018 .
+        Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.</p>
+        <p>Site Generated 2018-05-22 23:21:13</p>
+      </span>
+    </div>
+
+    
+    
+  </body>
+</html>
