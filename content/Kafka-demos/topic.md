@@ -4,6 +4,8 @@ layout: page
 date: 2018-05-25 00:00
 ---
 
+[TOC]
+
 ## 项目环境
 
 * unix platform
@@ -146,3 +148,7 @@ try {
 http://kafka.apache.org/11/javadoc/overview-summary.html
 
 注：具体的类说明，需要看API中的介绍
+
+## 源代码地址
+
+<a href="https://github.com/kafka-learn/demos/tree/master/kafka-topic" target="_blank">点击查看</a>
