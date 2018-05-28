@@ -132,12 +132,11 @@ Topic:test  PartitionCount:1    ReplicationFactor:1 Configs:
 
 
 <h3 id="java-api-topic">Java API 操作 topic</h3>
-<p>代码见 code/demo-topic 项目</p>
 <ul>
 <li>查看所有的topic</li>
 </ul>
-<div class="hlcode"><pre><span class="n">Properties</span> <span class="n">props</span> <span class="o">=</span> <span class="n">new</span> <span class="n">Properties</span><span class="p">();</span>
-<span class="n">props</span><span class="p">.</span><span class="n">put</span><span class="p">(</span><span class="s">&quot;bootstrap.servers&quot;</span><span class="p">,</span> <span class="s">&quot;localhost:9092&quot;</span><span class="p">);</span>
+<div class="hlcode"><pre><span class="n">Properties</span> <span class="n">props</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Properties</span><span class="o">();</span>
+<span class="n">props</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&quot;bootstrap.servers&quot;</span><span class="o">,</span> <span class="s">&quot;localhost:9092&quot;</span><span class="o">);</span>
 <span class="c1">//        props.put(&quot;group.id&quot;,&quot;test&quot;);</span>
 <span class="c1">//        props.put(&quot;auto.offset.reset&quot;,&quot;earliest&quot;);</span>
 <span class="c1">//        props.put(&quot;acks&quot;, &quot;all&quot;);</span>
@@ -146,30 +145,30 @@ Topic:test  PartitionCount:1    ReplicationFactor:1 Configs:
 <span class="c1">//        props.put(&quot;linger.ms&quot;, 1);</span>
 <span class="c1">//        props.put(&quot;buffer.memory&quot;, 33554432);</span>
 <span class="c1">//        props.put(&quot;key.serializer&quot;, &quot;org.apache.kafka.common.serialization.StringSerializer&quot;);</span>
-<span class="n">props</span><span class="p">.</span><span class="n">put</span><span class="p">(</span><span class="s">&quot;key.deserializer&quot;</span><span class="p">,</span> <span class="s">&quot;org.apache.kafka.common.serialization.StringDeserializer&quot;</span><span class="p">);</span>
+<span class="n">props</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&quot;key.deserializer&quot;</span><span class="o">,</span> <span class="s">&quot;org.apache.kafka.common.serialization.StringDeserializer&quot;</span><span class="o">);</span>
 <span class="c1">//        props.put(&quot;value.serializer&quot;, &quot;org.apache.kafka.common.serialization.StringSerializer&quot;);</span>
-<span class="n">props</span><span class="p">.</span><span class="n">put</span><span class="p">(</span><span class="s">&quot;value.deserializer&quot;</span><span class="p">,</span> <span class="s">&quot;org.apache.kafka.common.serialization.StringDeserializer&quot;</span><span class="p">);</span>
+<span class="n">props</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&quot;value.deserializer&quot;</span><span class="o">,</span> <span class="s">&quot;org.apache.kafka.common.serialization.StringDeserializer&quot;</span><span class="o">);</span>
 
 
-<span class="n">AdminClient</span> <span class="n">adminClient</span> <span class="o">=</span> <span class="n">AdminClient</span><span class="p">.</span><span class="n">create</span><span class="p">(</span><span class="n">props</span><span class="p">);</span>
+<span class="n">AdminClient</span> <span class="n">adminClient</span> <span class="o">=</span> <span class="n">AdminClient</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="n">props</span><span class="o">);</span>
 
-<span class="n">ListTopicsResult</span> <span class="n">listTopicsResult</span> <span class="o">=</span> <span class="n">adminClient</span><span class="p">.</span><span class="n">listTopics</span><span class="p">();</span>
-<span class="n">KafkaFuture</span><span class="o">&lt;</span><span class="n">java</span><span class="p">.</span><span class="n">util</span><span class="p">.</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">java</span><span class="p">.</span><span class="n">lang</span><span class="p">.</span><span class="n">String</span><span class="p">,</span><span class="n">TopicListing</span><span class="o">&gt;&gt;</span> <span class="n">kafkaFuture</span>
-        <span class="o">=</span> <span class="n">listTopicsResult</span><span class="p">.</span><span class="n">namesToListings</span><span class="p">();</span>
-<span class="n">try</span> <span class="p">{</span>
-    <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="p">,</span><span class="n">TopicListing</span><span class="o">&gt;</span> <span class="n">mp</span> <span class="o">=</span> <span class="n">kafkaFuture</span><span class="p">.</span><span class="n">get</span><span class="p">();</span>
+<span class="n">ListTopicsResult</span> <span class="n">listTopicsResult</span> <span class="o">=</span> <span class="n">adminClient</span><span class="o">.</span><span class="na">listTopics</span><span class="o">();</span>
+<span class="n">KafkaFuture</span><span class="o">&lt;</span><span class="n">java</span><span class="o">.</span><span class="na">util</span><span class="o">.</span><span class="na">Map</span><span class="o">&lt;</span><span class="n">java</span><span class="o">.</span><span class="na">lang</span><span class="o">.</span><span class="na">String</span><span class="o">,</span><span class="n">TopicListing</span><span class="o">&gt;&gt;</span> <span class="n">kafkaFuture</span>
+        <span class="o">=</span> <span class="n">listTopicsResult</span><span class="o">.</span><span class="na">namesToListings</span><span class="o">();</span>
+<span class="k">try</span> <span class="o">{</span>
+    <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span><span class="n">TopicListing</span><span class="o">&gt;</span> <span class="n">mp</span> <span class="o">=</span> <span class="n">kafkaFuture</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
 
-    <span class="n">mp</span><span class="p">.</span><span class="n">forEach</span><span class="p">((</span><span class="n">String</span> <span class="n">topic_name</span><span class="p">,</span> <span class="n">TopicListing</span> <span class="n">topicListing</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">{</span>
-        <span class="n">System</span><span class="p">.</span><span class="n">out</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="n">topicListing</span><span class="p">.</span><span class="n">toString</span><span class="p">());</span>
+    <span class="n">mp</span><span class="o">.</span><span class="na">forEach</span><span class="o">((</span><span class="n">String</span> <span class="n">topic_name</span><span class="o">,</span> <span class="n">TopicListing</span> <span class="n">topicListing</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">topicListing</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
 
-    <span class="p">});</span>
-<span class="p">}</span> <span class="n">catch</span> <span class="p">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">e</span><span class="p">.</span><span class="n">printStackTrace</span><span class="p">();</span>
-<span class="p">}</span> <span class="n">catch</span> <span class="p">(</span><span class="n">ExecutionException</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">e</span><span class="p">.</span><span class="n">printStackTrace</span><span class="p">();</span>
-<span class="p">}</span><span class="n">finally</span> <span class="p">{</span>
-    <span class="n">adminClient</span><span class="p">.</span><span class="n">close</span><span class="p">();</span>
-<span class="p">}</span>
+    <span class="o">});</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">ExecutionException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+<span class="o">}</span><span class="k">finally</span> <span class="o">{</span>
+    <span class="n">adminClient</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+<span class="o">}</span>
 </pre></div>
 
 
@@ -182,7 +181,7 @@ Topic:test  PartitionCount:1    ReplicationFactor:1 Configs:
 </ul>
 <p><img alt="" src="https://raw.githubusercontent.com/kafka-learn/imgs/master/src/describe_topic.png" /></p>
 <h2 id="_3">参考</h2>
-<p>http://kafka.apache.org/11/javadoc/overview-summary.html</p>
+<p><a href="http://kafka.apache.org/11/javadoc/overview-summary.html" target="_blank">kafka 1.1.0 API</a></p>
 <p>注：具体的类说明，需要看API中的介绍</p>
 <h2 id="_4">源代码地址</h2>
 <p><a href="https://github.com/kafka-learn/demos/tree/master/kafka-topic" target="_blank">点击查看</a></p>
@@ -191,7 +190,7 @@ Topic:test  PartitionCount:1    ReplicationFactor:1 Configs:
       <span>
         <p>Copyright © 2018 .
         Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.</p>
-        <p>Site Generated 2018-05-24 19:52:42</p>
+        <p>Site Generated 2018-05-29 00:11:22</p>
       </span>
     </div>
 
