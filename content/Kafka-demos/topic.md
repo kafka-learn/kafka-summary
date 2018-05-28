@@ -94,11 +94,9 @@ $ bin/kafka-server-stop.sh
 
 ### Java API 操作 topic
 
-代码见 code/demo-topic 项目
-
 * 查看所有的topic
 
-```
+```java
 Properties props = new Properties();
 props.put("bootstrap.servers", "localhost:9092");
 //        props.put("group.id","test");
@@ -145,7 +143,7 @@ try {
 
 ## 参考
 
-http://kafka.apache.org/11/javadoc/overview-summary.html
+<a href="http://kafka.apache.org/11/javadoc/overview-summary.html" target="_blank">kafka 1.1.0 API</a>
 
 注：具体的类说明，需要看API中的介绍
 
